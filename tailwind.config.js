@@ -11,7 +11,8 @@ export default {
         Logo: ["Arizonia", "Inter", "system-ui", "sans-serif"]
       },
       colors: {
-        primary: "#2349FF"
+        primary: "#2349FF",
+        light: "#6A6F8E"
       }
     },
   },

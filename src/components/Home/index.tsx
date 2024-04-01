@@ -19,7 +19,7 @@ export default function Home (): JSX.Element {
       </div>
       <div className=' w-[10.6rem] lg:w-[15.6rem]'>
         <a href='https://www.linkedin.com/in/aldilukmn' target='_blank' rel='noopener noreferrer' className='text-primary font-bold text-2xl lg:text-4xl group'>Let&apos;s connect!
-        <div className='group-hover:w-full w-0 h-1 duration-500 bg-primary'></div>
+        <div className='group-hover:w-full w-0 h-1 duration-300 bg-primary rounded'></div>
         </a>
       </div>
     </>
