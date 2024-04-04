@@ -1,17 +1,18 @@
 import { Icon } from '@iconify/react/dist/iconify.js'
-import { screenSize } from '../../libs'
+import { ScrollSize, screenSize } from '../../libs'
 import { menu } from './data'
 import { useState } from 'react'
 
 export default function Navbar (): JSX.Element {
   const { width } = screenSize()
+  const { scrollY } = ScrollSize()
   const [showMenu, setShowMenu] = useState<boolean>(false)
   const handleShowNavbar = (): void => {
     setShowMenu(prev => !prev)
   }
   return (
     <>
-      <div className='flex justify-between shadow border-b items-center px-10 lg:px-32 py-6 bg-white fixed top-0 w-full z-[9999]'>
+      <div className={`flex justify-between items-center px-10 lg:px-32 py-6 bg-white fixed top-0 w-full z-[9999] ${scrollY >= 80 ? 'shadow' : ''}`}>
         <section className="font-Logo text-3xl cursor-default">
           <h1>aldilukmn</h1>
         </section>
