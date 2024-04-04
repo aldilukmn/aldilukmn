@@ -3,7 +3,7 @@ import photo from '../../assets/photo.jpg'
 export default function Home (): JSX.Element {
   return (
     <>
-      <div className='flex flex-col-reverse lg:flex-row gap-20 items-center justify-between mt-36 mb-10'>
+      <div className='flex flex-col-reverse lg:flex-row gap-20 items-center justify-between mt-36 mb-10 text-dark'>
         <section className='lg:w-3/4'>
           <h1 className='text-6xl lg:text-7xl font-bold leading-tight mb-5'>
             Hi there! 👋 <br />
@@ -18,7 +18,7 @@ export default function Home (): JSX.Element {
         </section>
       </div>
       <div className=' w-[10.6rem] lg:w-[15.6rem]'>
-        <a href='https://www.linkedin.com/in/aldilukmn' target='_blank' rel='noopener noreferrer' className='text-primary font-bold text-2xl lg:text-4xl group'>Let&apos;s connect!
+        <a href='https://www.linkedin.com/in/aldilukmn' target='_blank' rel='noopener noreferrer' className='text-primary font-bold text-2xl lg:text-4xl group outline-none'>Let&apos;s connect!
         <div className='group-hover:w-full w-0 h-1 duration-300 bg-primary rounded'></div>
         </a>
       </div>
