@@ -1,7 +1,14 @@
 import { Icon } from '@iconify/react/dist/iconify.js'
-import { ListContact } from './data'
+import { ListContact, inputForm } from './data'
+import { stateForm, submitForm } from './hooks'
 
 export default function Contact (): JSX.Element {
+  const { name, email, phone, message, handleChange, handleTextareaChange, resetState } = stateForm()
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
+    event.preventDefault()
+    const formData = new FormData(event.currentTarget)
+    await submitForm(formData, resetState)
+  }
   return (
     <>
       <div className="mt-16 flex flex-col lg:flex-row gap-10 lg:gap-0">
@@ -20,12 +27,14 @@ export default function Contact (): JSX.Element {
           </section>
         </section>
         <section className="flex-auto lg:w-1/2">
-          <form action="" className="flex flex-col gap-5">
-            <input type="text" placeholder="Full Name" className="border rounded-lg p-3 w-full focus:border-gray-400 outline-none" />
-            <input type="email" placeholder="Email" className="border rounded-lg p-3 w-full focus:border-gray-400 outline-none" />
-            <input type="number" placeholder="Phone Number" className="border rounded-lg p-3 w-full focus:border-gray-400 outline-none" />
-            <textarea placeholder="Your Message ..." cols={20} rows={5} className="border rounded-lg p-3 w-full focus:border-gray-400 outline-none"></textarea>
-            <button className="border p-2 rounded-lg bg-primary text-white font-medium outline-none">Submit</button>
+          <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+            {
+              inputForm.map((val, index) => (
+                <input key={index} type={val.type} placeholder={val.placeholder} name={val.name} className="border rounded-lg p-3 w-full focus:border-gray-400 outline-none" onChange={handleChange} value={val.name === 'name' ? name : val.name === 'email' ? email : val.name === 'phone' ? phone : ''} />
+              ))
+            }
+            <textarea placeholder="Your Message ..." name='message' cols={20} rows={5} className="border rounded-lg p-3 w-full focus:border-gray-400 outline-none" onChange={handleTextareaChange} value={message}></textarea>
+            <button className={`border p-2 rounded-lg bg-primary text-white font-medium outline-none ${!name || !email || !phone || !message ? 'opacity-60 cursor-not-allowed' : ''}`} type='submit' disabled={!name || !email || !phone || !message}>Submit</button>
           </form>
         </section>
       </div>

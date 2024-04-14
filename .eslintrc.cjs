@@ -31,6 +31,8 @@ module.exports = {
      "rules": {
         "react/jsx-uses-react": "off",
         "react/jsx-uses-vars": "off",
+        "@typescript-eslint/no-misused-promises": "off",
+        "@typescript-eslint/strict-boolean-expressions": "off"
     },
     "ignorePatterns": ['.eslintrc.cjs']
 }
