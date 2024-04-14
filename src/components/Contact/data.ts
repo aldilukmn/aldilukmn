@@ -1,4 +1,4 @@
-import type { ContactType } from './types'
+import type { ContactType, InputType } from './types'
 
 export const ListContact: ContactType[] = [
   {
@@ -12,5 +12,23 @@ export const ListContact: ContactType[] = [
   {
     iconName: 'mdi:location',
     title: 'Blok Roma Desa Bulak No. 11 Jatibarang Indramayu Jawa Barat'
+  }
+]
+
+export const inputForm: InputType[] = [
+  {
+    type: 'text',
+    placeholder: 'Full Name',
+    name: 'name'
+  },
+  {
+    type: 'email',
+    placeholder: 'Email',
+    name: 'email'
+  },
+  {
+    type: 'number',
+    placeholder: 'Phone Number',
+    name: 'phone'
   }
 ]
