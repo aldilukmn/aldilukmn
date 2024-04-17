@@ -1,16 +1,19 @@
 import { Icon } from '@iconify/react/dist/iconify.js'
 import { ListContact, inputForm } from './data'
-import { stateForm, submitForm } from './hooks'
+import { ModalFormHook, stateForm, submitForm } from './hooks'
+import ModalForm from './ModalForm'
 
 export default function Contact (): JSX.Element {
-  const { name, email, phone, message, handleChange, handleTextareaChange, resetState } = stateForm()
+  const { user, handleChange, handleTextareaChange, resetState } = stateForm()
+  const { isOpen, openModal, closeModal } = ModalFormHook()
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
-    await submitForm(formData, resetState)
+    await submitForm(formData, resetState, openModal)
   }
   return (
     <>
+      <ModalForm isOpen={isOpen} openModal={openModal} closeModal={closeModal}/>
       <div className="mt-16 flex flex-col lg:flex-row gap-10 lg:gap-0">
         <section className="flex-auto lg:w-1/2">
           <h2 className="text-4xl text-primary font-bold mb-5">Get In Touch</h2>
@@ -30,11 +33,11 @@ export default function Contact (): JSX.Element {
           <form onSubmit={handleSubmit} className="flex flex-col gap-5">
             {
               inputForm.map((val, index) => (
-                <input key={index} type={val.type} placeholder={val.placeholder} name={val.name} className="border rounded-lg p-3 w-full focus:border-gray-400 outline-none" onChange={handleChange} value={val.name === 'name' ? name : val.name === 'email' ? email : val.name === 'phone' ? phone : ''} />
+                <input key={index} type={val.type} placeholder={val.placeholder} name={val.name} className="border rounded-lg p-3 w-full focus:border-gray-400 outline-none" onChange={handleChange} value={val.name === 'name' ? user.name : val.name === 'email' ? user.email : val.name === 'phone' ? user.phone : ''} />
               ))
             }
-            <textarea placeholder="Your Message ..." name='message' cols={20} rows={5} className="border rounded-lg p-3 w-full focus:border-gray-400 outline-none" onChange={handleTextareaChange} value={message}></textarea>
-            <button className={`border p-2 rounded-lg bg-primary text-white font-medium outline-none ${!name || !email || !phone || !message ? 'opacity-60 cursor-not-allowed' : ''}`} type='submit' disabled={!name || !email || !phone || !message}>Submit</button>
+            <textarea placeholder="Your Message ..." name='message' cols={20} rows={5} className="border rounded-lg p-3 w-full focus:border-gray-400 outline-none" onChange={handleTextareaChange} value={user.message}></textarea>
+            <button className={`border p-2 rounded-lg bg-primary text-white font-medium outline-none ${!user.name || !user.email || !user.phone || !user.message ? 'opacity-60 cursor-not-allowed' : ''}`} type='submit' disabled={!user.name || !user.email || !user.phone || !user.message}>Submit</button>
           </form>
         </section>
       </div>

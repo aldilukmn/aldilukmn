@@ -12,7 +12,7 @@ export default function Navbar (): JSX.Element {
   }
   return (
     <>
-      <div className={`flex justify-between items-center px-10 lg:px-32 py-6 bg-white fixed top-0 w-full z-[9999] ${scrollY >= 80 ? 'shadow' : ''}`}>
+      <div className={`flex justify-between items-center px-10 lg:px-32 py-6 bg-white fixed top-0 w-full z-[9998] ${scrollY >= 80 ? 'shadow' : ''}`}>
         <section className="font-Logo text-3xl cursor-default">
           <h1>aldilukmn</h1>
         </section>

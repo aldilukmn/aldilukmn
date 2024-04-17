@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import type { ResponseType, StateFormType } from './types'
+import type { UserType, ResponseType, StateFormType, ModalFormHookType } from './types'
 
-export const submitForm = async (formData: FormData, resetState: () => void): Promise<void> => {
+export const submitForm = async (formData: FormData, resetState: () => void, openModal: () => void): Promise<void> => {
   formData.append('access_key', import.meta.env.VITE_FORM_ACCESS_KEY as string)
 
   const object = Object.fromEntries(formData)
@@ -22,6 +22,7 @@ export const submitForm = async (formData: FormData, resetState: () => void): Pr
       if (res.success) {
         console.log('Success', res)
         resetState()
+        openModal()
       }
     }
   } catch (error) {
@@ -32,39 +33,54 @@ export const submitForm = async (formData: FormData, resetState: () => void): Pr
 }
 
 export const stateForm = (): StateFormType => {
-  const [name, setName] = useState<string>('')
-  const [email, setEmail] = useState<string>('')
-  const [phone, setPhone] = useState<string>('')
-  const [message, setMessage] = useState<string>('')
+  const [user, setUser] = useState<UserType>({
+    name: '',
+    email: '',
+    phone: '',
+    message: ''
+  })
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = event.target
-    switch (name) {
-      case 'name':
-        setName(value)
-        break
-      case 'email':
-        setEmail(value)
-        break
-      case 'phone':
-        setPhone(value)
-        break
-    }
+    setUser((state: UserType) => ({
+      ...state,
+      [name]: value
+    }))
   }
 
   const handleTextareaChange = (event: React.ChangeEvent<HTMLTextAreaElement>): void => {
     const { name, value } = event.target
     if (name === 'message') {
-      setMessage(value)
+      setUser((state: UserType) => ({
+        ...state,
+        [name]: value
+      }))
     }
   }
 
   const resetState = (): void => {
-    setName('')
-    setEmail('')
-    setPhone('')
-    setMessage('')
+    setUser((state: UserType) => ({
+      ...state,
+      name: '',
+      email: '',
+      phone: '',
+      message: ''
+    }))
   }
 
-  return { name, email, phone, message, handleChange, handleTextareaChange, resetState }
+  return { user, handleChange, handleTextareaChange, resetState }
+}
+
+export const ModalFormHook = (): ModalFormHookType => {
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+
+  function openModal (): void {
+    setIsOpen(prev => !prev)
+  }
+
+  function closeModal (): void {
+    setIsOpen(prev => !prev)
+  }
+
+  return { isOpen, openModal, closeModal }
 }
